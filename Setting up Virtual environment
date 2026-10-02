@@ -1,0 +1,21 @@
+# This file will teach you how to setup a local IAM environment utilizing Oracle's VirtualBox (or whichever virtualization software you prefer)
+
+# For my setup I am utilizing a desktop computer and laptop. The desktop computer has 64gb of RAM and 16-Core CPU. This will be enough storage and processing to allow
+me to setup a domain controller and database server on my local network. My laptop which only has 16gb of RAM and 14-Core CPU will serve as the client for my IAM environment
+
+# Ensure you have at least 32gb of RAM and 10-Core CPU as the domain controller and database server will require a bit of storage and processing power. If you have
+a powerful enough machine and can do this on one then that is okay too. 
+
+# The IAM environment will be built utitlizing only Windows OS. I cannot support other OS at this time (Linux, macOS, etc.)
+
+# I will be utilizing MS VS Code for Windows. Can be downloaded here --> https://code.visualstudio.com/download?_exp_download=d53503e735
+
+# Step 1 
+Download latest version of Oracle Virtualbox for Windows hosts from here https://www.virtualbox.org/wiki/Downloads onto to host of your choosing
+
+# Step 2 
+Verify installation of Oracle Virtualbox was successful. I will open up VS Code (you can use any code editor of your choosing) and open a terminal to verify.
+Navigate to "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe". If it cant be found try navigating to your C: drive and then going into Program Files and look for Oracle folder.
+When VirtualBox is downloadeded it will automatically create and install it here in Program Files unless explicitly written otherwise during the initial installation step. 
+
+# Step 3 
