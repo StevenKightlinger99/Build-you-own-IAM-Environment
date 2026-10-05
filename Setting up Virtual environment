@@ -27,6 +27,7 @@ This environment is built using Windows only. At this time, support is limited t
 For this setup, I will use:
 - Microsoft VS Code for Windows
 - Oracle VirtualBox
+- Windows Server 2022 ISO
 
 You can download VS Code here:
 https://code.visualstudio.com/download
@@ -58,3 +59,39 @@ You can also verify the installation by running:
 
 ```powershell
 & "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" --version
+
+## Step 3: Verify virtual ethernet adapter and identify IP address for environment use
+
+run the command ipconfig /all to view ethernet adapters. If installed correctly, there should be a VirtualBox host only ethernet adapter
+
+cmd/powershell run "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list hostonlyifs for IP address and Network mask 
+
+192.168.0.0 - 192.168.255.255 are typical IP ranges for home/office networks. For the basis of security, I will use 192.168.x.x/24 as example network
+
+## Step 4: Download Windows Server 2022 ISO
+
+microsoft.com/en-us/evalcenter/download-windows-server-2022
+
+This is the windows OS software system version that we will use for our environment
+
+Note: This is a 180-day free trial evaulation edition which basically means that after 180 days you can resubmit and renew trial
+
+## Step 5 Create Domain Controller (DC01)
+
+Open VirtualBox 
+
+Click "New" -> VM Name "DC01" -> VM Folder use default folder -> ISO Image Select ISO image downloaded in step 4 -> leave all other fields 
+
+Uncheck "Proceed with Unattended Installation" we want to install it ourselves as we will add a few things in -> Click "Next"
+
+Base Memory or RAM set to 4096mb, Number of CPUs: 2, Disk Size: 60gb, Click "Next" 
+
+Summary of VM specifications. Verify correct values. 
+
+Go to Adapter and make sure you are in "Expert" mode. Just click on export at top of menu. Adapter 1 should be set to NAT.
+
+Click on Adapter 2 and check the box "Enable Network Adapter". Then go to Attach to and select "Host-Only Ethernet Adapter"
+
+
+
+
