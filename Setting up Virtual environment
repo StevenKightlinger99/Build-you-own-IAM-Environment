@@ -59,39 +59,82 @@ You can also verify the installation by running:
 
 ```powershell
 & "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" --version
+```
 
-## Step 3: Verify virtual ethernet adapter and identify IP address for environment use
+## Step 3: Verify the Virtual Ethernet Adapter and Identify the IP Address
 
-run the command ipconfig /all to view ethernet adapters. If installed correctly, there should be a VirtualBox host only ethernet adapter
+Run the command below to view all network adapters. If VirtualBox was installed correctly, there should be a host-only Ethernet adapter present.
 
-cmd/powershell run "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list hostonlyifs for IP address and Network mask 
+```powershell
+ipconfig /all
+```
 
-192.168.0.0 - 192.168.255.255 are typical IP ranges for home/office networks. For the basis of security, I will use 192.168.x.x/24 as example network
+You can also check the host-only adapters directly with this command:
+
+```powershell
+"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list hostonlyifs
+```
+
+This will show the IP address and network mask for the VirtualBox host-only network. Typical home and office ranges may look like:
+
+- `192.168.0.0 - 192.168.255.255`
+
+For the purpose of this lab, I will use a private network such as `192.168.x.x/24` as an example.
 
 ## Step 4: Download Windows Server 2022 ISO
 
-microsoft.com/en-us/evalcenter/download-windows-server-2022
+Download the Windows Server 2022 ISO from Microsoft:
 
-This is the windows OS software system version that we will use for our environment
+https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022
 
-Note: This is a 180-day free trial evaulation edition which basically means that after 180 days you can resubmit and renew trial
+This is the Windows operating system version that I will use for the environment.
 
-## Step 5 Create Domain Controller (DC01)
+Note: This is a 180-day free trial evaluation edition. After 180 days, you can reapply and renew the trial if needed.
 
-Open VirtualBox 
+## Step 5: Create the Domain Controller (DC01)
 
-Click "New" -> VM Name "DC01" -> VM Folder use default folder -> ISO Image Select ISO image downloaded in step 4 -> leave all other fields 
+Open VirtualBox.
 
-Uncheck "Proceed with Unattended Installation" we want to install it ourselves as we will add a few things in -> Click "Next"
+Click "New" and configure the VM as follows:
+- VM Name: `DC01`
+- VM Folder: use the default folder
+- ISO Image: select the Windows Server 2022 ISO downloaded in Step 4
+- Leave all other fields as default
 
-Base Memory or RAM set to 4096mb, Number of CPUs: 2, Disk Size: 60gb, Click "Next" 
+Uncheck "Proceed with Unattended Installation" because we want to install it manually and add a few things ourselves. Then click "Next".
 
-Summary of VM specifications. Verify correct values. 
+Set the following values:
+- Base Memory / RAM: 4096 MB
+- Number of CPUs: 2
+- Disk Size: 60 GB
 
-Go to Adapter and make sure you are in "Expert" mode. Just click on export at top of menu. Adapter 1 should be set to NAT.
+Then click "Next".
 
-Click on Adapter 2 and check the box "Enable Network Adapter". Then go to Attach to and select "Host-Only Ethernet Adapter"
+Review the VM summary and verify the values are correct.
 
+### Network Adapter Configuration
 
+Go to the VM settings and make sure you are in "Expert" mode. You can do this by clicking the menu option at the top of the settings page.
 
+Set Adapter 1 to:
+- Attached to: NAT
 
+Click on Adapter 2 and check the box for "Enable Network Adapter".
+
+Then set:
+- Attach to: Host-Only Ethernet Adapter
+
+This gives the domain controller a private network for communication with the rest of the lab while still allowing outbound access via NAT.
+
+## Recommended Next Step
+
+Once the Windows Server installation is complete, the next step will be to configure the server as a domain controller and set up the IAM environment.
+
+This will include:
+- Installing Active Directory Domain Services
+- Promoting the server to a domain controller
+- Configuring DNS
+- Joining client machines to the domain
+- Creating users, groups, and access policies
+
+This is the foundation for the rest of the environment and will be expanded in later setup steps.
